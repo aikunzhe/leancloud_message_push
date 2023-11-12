@@ -1,0 +1,19 @@
+{
+  "name": "leancloud_message_push",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aikunzhe/leancloud_message_push.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aikunzhe/leancloud_message_push/issues"
+  },
+  "homepage": "https://github.com/aikunzhe/leancloud_message_push#readme"
+}
