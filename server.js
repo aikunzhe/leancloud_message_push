@@ -50,7 +50,4 @@ app.get('/sendDataToPushPlus', async (req, res) => {
   }
 });
 
-// 启动服务器
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+
