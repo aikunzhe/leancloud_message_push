@@ -2,9 +2,9 @@
   "name": "leancloud_message_push",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "leancloud-storage": "^4.15.2",
     "leanengine": "^3.8.0"
   },
-    "engines": {
-    "node": "*"
+  "engines": {
+    "node": "16.x"
   }
 }
