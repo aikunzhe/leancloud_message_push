@@ -30,10 +30,10 @@ jobs:
             appKey: process.env.LEANCLOUD_APP_KEY,
             serverURL: process.env.LEANCLOUD_SERVER_URL,
           });
-          const query = new AV.Query("_Class");
+          const query = new AV.Query("Comment");
           query.find().then(
             function (results) {
-              const classNames = results.map((result) => result.className);
+              const classNames = results.map((result) => result.id);
               console.log("所有 Class Name:", classNames);
             },
             function (error) {
