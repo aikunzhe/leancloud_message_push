@@ -1,8 +1,6 @@
 name: LeanCloud Query1
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 jobs:
   printInputs:
     runs-on: ubuntu-latest
