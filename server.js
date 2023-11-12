@@ -3,7 +3,7 @@ const axios = require('axios');
 const AV = require('leancloud-storage');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.LEANCLOUD_APP_PORT || 3000;
 
 // LeanCloud 初始化
 AV.init({
