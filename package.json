@@ -19,5 +19,8 @@
   "dependencies": {
     "leancloud-storage": "^4.15.2",
     "leanengine": "^3.8.0"
+  },
+    "engines": {
+    "node": "*"
   }
 }
