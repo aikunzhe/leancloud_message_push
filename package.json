@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/aikunzhe/leancloud_message_push/issues"
   },
-  "homepage": "https://github.com/aikunzhe/leancloud_message_push#readme"
+  "homepage": "https://github.com/aikunzhe/leancloud_message_push#readme",
+  "dependencies": {
+    "leancloud-storage": "^4.15.2",
+    "leanengine": "^3.8.0"
+  }
 }
