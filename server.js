@@ -10,6 +10,11 @@ http.get(url, (res) => {
     res.on('data', (d) => {
         process.stdout.write(d);
     });
+        // 返回成功结果
+    return { success: true, data: res };
 }).on('error', (error) => {
     console.error(error);
+    return { success: false, error: error.message };
 });
+
+return ;
