@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 AV.init({
   appId: process.env.LEANCLOUD_APP_ID,
   appKey: process.env.LEANCLOUD_APP_KEY,
-  serverURL: process.env.LEANCLOUD_SERVER_URL,
+  serverURL: process.env.LEANCLOUD_API_SERVER,
 });
 
 // 中间件，用于解析请求体中的 JSON 数据
