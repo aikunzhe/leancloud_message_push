@@ -1,10 +1,8 @@
-name: LeanCloud Query
-
+name: LeanCloud Query1
 on:
   push:
     branches:
       - main
-
 jobs:
   printInputs:
     runs-on: ubuntu-latest
