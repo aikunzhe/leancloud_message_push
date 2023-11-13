@@ -4,6 +4,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    - cron: '*/25 * * * *'
 jobs:
   get-comment-data:
     runs-on: ubuntu-latest
