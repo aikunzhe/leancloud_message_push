@@ -1,48 +1,30 @@
-name: LeanCloud Query
+name: Get LeanCloud Comment Data
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
+
 jobs:
-  query:
+  get-comment-data:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '14'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Query LeanCloud Class Names
-      run: |
-        node -e '
-          const AV = require("leancloud-storage");
-          AV.init({
-            appId: process.env.LEANCLOUD_APP_ID,
-            appKey: process.env.LEANCLOUD_APP_KEY,
-            serverURL: process.env.LEANCLOUD_SERVER_URL,
-          });
-          const query = new AV.Query("Comment");
-          query.find().then(
-            function (results) {
-              const classNames = results.map((result) => result.id);
-              console.log("所有 Class Name:", classNames);
-            },
-            function (error) {
-              console.error("获取 Class Name 失败", error);
-            }
-          );
-        '
-
-      env:
-        LEANCLOUD_APP_ID: ${{ secrets.LEANCLOUD_APP_ID }}
-        LEANCLOUD_APP_KEY: ${{ secrets.LEANCLOUD_APP_KEY }}
-        LEANCLOUD_SERVER_URL: ${{ secrets.LEANCLOUD_SERVER_URL }}
+      - name: Get Comment Data
+        run: node server.js
+        env:
+          LEANCLOUD_APP_ID: ${{ secrets.LEANCLOUD_APP_ID }}
+          LEANCLOUD_APP_KEY: ${{ secrets.LEANCLOUD_APP_KEY }}
+          LEANCLOUD_SERVER_URL: ${{ secrets.LEANCLOUD_SERVER_URL }}
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
