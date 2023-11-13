@@ -48,7 +48,7 @@ async function getCommentMesspushData() {
         Nick: ${commentObject.get('nick')},<br>
         Mail: ${commentObject.get('mail')},<br>
         Comment: ${commentObject.get('comment')},<br>
-        URL: ${siteUrl+commentObject.get('url')}<br>
+        URL:<a href="${siteUrl+commentObject.get('url')}">${siteUrl+commentObject.get('url')}</a><br>
         `;
     }).join('<br>');
   }
