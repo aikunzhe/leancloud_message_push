@@ -1,10 +1,9 @@
 name: Get LeanCloud Comment Data
-
 on:
   push:
     branches:
       - main
-
+  workflow_dispatch:
 jobs:
   get-comment-data:
     runs-on: ubuntu-latest
