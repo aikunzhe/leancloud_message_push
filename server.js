@@ -54,7 +54,7 @@ async function getCommentMesspushData() {
   }
 
   // 发送数据到 PushPlus
-  const pushplusUrl = `https://pushplus.plus/send?token=${pushplusToken}&title=LeanCloud${commentObjects.length}条评论回66复&content=${content}`;
+  const pushplusUrl = `https://pushplus.plus/send?token=${pushplusToken}&title=博客收到${commentObjects.length}条评论回复&content=${content}`;
   await axios.get(pushplusUrl);
 
   // 更新 time 字段
