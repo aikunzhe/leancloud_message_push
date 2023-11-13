@@ -1,8 +1,8 @@
 const AV = require('leancloud-storage');
-// const axios = require('axios');
-const axios = require('axios/dist/node/axios.cjs');
+const axios = require('axios');
+// const axios = require('axios/dist/node/axios.cjs');
 
-// LeanCloud 初始化
+// 初始化 LeanCloud SDK
 AV.init({
   appId: process.env.LEANCLOUD_APP_ID,
   appKey: process.env.LEANCLOUD_APP_KEY,
