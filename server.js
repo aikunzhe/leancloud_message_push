@@ -20,19 +20,19 @@ async function getCommentMesspushData() {
   query.limit(1);  // 获取一条数据
   const commentMesspushObject = await query.first();
   // 打印 Comment_messpush 表的内容
-  // console.log('Comment_messpush data:', commentMesspushObject.toJSON());
   commentMesspushObjectjson = commentMesspushObject.toJSON();
-  // console.log('Comment_messpush data:', commentMesspushObjectjson);
+  console.log('Comment_messpush data:', new Date(commentMesspushObjectjson.time));
 
   // 搜索 Comment 表的数据
   const Comment = AV.Object.extend('Comment');
   const commentQuery = new AV.Query(Comment);
-  commentQuery.greaterThan('insertedAt',  new Date(commentMesspushObjectjson.time));
+  commentQuery.greaterThan('insertedAt', new Date(commentMesspushObjectjson.time)+1);
   commentQuery.descending('insertedAt'); // 按 insertedAt 降序排序
   const commentObjects = await commentQuery.find();
   newTime = 0;
 
   const length = commentObjects.length;
+  console.log('length data:', length);
   let content = '';
   if(length){
 
@@ -40,7 +40,8 @@ async function getCommentMesspushData() {
     newTime = firstComment.get('insertedAt');
 
     // 将 commentObjects 数组转换为 JSON 字符串
-    // content = JSON.stringify(commentObjects.map(commentObject => commentObject.toJSON('\n\n')), null, 2);
+    content = JSON.stringify(commentObjects.map(commentObject => commentObject.toJSON('\n\n')), null, 2);
+    console.log('contentdata:',  content);
 
     // 提取关键信息并整理格式
     content = commentObjects.map(commentObject => {
@@ -51,29 +52,30 @@ async function getCommentMesspushData() {
         URL:<a href="${siteUrl+commentObject.get('url')}">${siteUrl+commentObject.get('url')}</a><br>
         `;
     }).join('<br>');
+    // console.log('content data:', content);
+
+    // 发送数据到 PushPlus
+    const pushplusUrl = `https://pushplus.plus/send?token=${pushplusToken}&title=博客收到${commentObjects.length}条评论回复&content=${content}`;
+    // await axios.get(pushplusUrl);
+
+    // 更新 time 字段
+    // 获取年、月、日、时、分、秒
+    const year = newTime.getFullYear();
+    const month = String(newTime.getMonth() + 1).padStart(2, '0');
+    const day = String(newTime.getDate()).padStart(2, '0');
+    const hours = String(newTime.getHours()).padStart(2, '0');
+    const minutes = String(newTime.getMinutes()).padStart(2, '0');
+    const seconds = String(newTime.getSeconds()).padStart(2, '0');
+    // 构建日期时间字符串
+    const formattedDateString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    commentMesspushObject.set('time', formattedDateString);
+    await commentMesspushObject.save();
+    console.log('更新 time data:', formattedDateString);
+  }else{
+    console.log('暂时没有数据更新');
   }
-
-  // 发送数据到 PushPlus
-  const pushplusUrl = `https://pushplus.plus/send?token=${pushplusToken}&title=博客收到${commentObjects.length}条评论回复&content=${content}`;
-  await axios.get(pushplusUrl);
-
-  // 更新 time 字段
-  // 获取年、月、日、时、分、秒
-  const year = newTime.getFullYear();
-  const month = String(newTime.getMonth() + 1).padStart(2, '0');
-  const day = String(newTime.getDate()).padStart(2, '0');
-  const hours = String(newTime.getHours()).padStart(2, '0');
-  const minutes = String(newTime.getMinutes()).padStart(2, '0');
-  const seconds = String(newTime.getSeconds()).padStart(2, '0');
-  // 构建日期时间字符串
-  const formattedDateString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-
-
-  commentMesspushObject.set('time', formattedDateString);
-  await commentMesspushObject.save();
-
 }
-
 // 执行函数
 getCommentMesspushData();
 
