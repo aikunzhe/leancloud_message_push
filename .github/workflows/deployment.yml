@@ -5,7 +5,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/20 * * * *'
 jobs:
   get-comment-data:
     runs-on: ubuntu-latest
