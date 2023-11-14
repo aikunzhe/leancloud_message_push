@@ -20,14 +20,14 @@ async function getCommentMesspushData() {
   query.limit(1);  // 获取一条数据
   const commentMesspushObject = await query.first();
   commentMesspushObjectjson = commentMesspushObject.toJSON();
-  console.log('打印 Comment_messpush 表的内容:', new Date(commentMesspushObjectjson.time));
+  console.log('打印 Comment_messpush 表的内容:', commentMesspushObjectjson.time);
 
   // 搜索 Comment 表的数据
   const Comment = AV.Object.extend('Comment');
   const commentQuery = new AV.Query(Comment);
   // 创建一个 Date 对象，表示 '2023-11-12 23:34:55'
   let dateObject = new Date(commentMesspushObjectjson.time);
-  dateObject.setSeconds(dateObject.getSeconds() + 1);  // 增加一秒
+  console.log('打印 dateObject 表的内容:', dateObject);
   commentQuery.greaterThan('insertedAt', dateObject);  //where条件
   commentQuery.descending('insertedAt'); // 按 insertedAt 降序排序
   const commentObjects = await commentQuery.find();
@@ -80,4 +80,3 @@ async function getCommentMesspushData() {
 }
 // 执行函数
 getCommentMesspushData();
-
