@@ -19,14 +19,16 @@ async function getCommentMesspushData() {
   query.descending('createdAt');  // 按创建时间降序排序
   query.limit(1);  // 获取一条数据
   const commentMesspushObject = await query.first();
-  // 打印 Comment_messpush 表的内容
   commentMesspushObjectjson = commentMesspushObject.toJSON();
-  console.log('Comment_messpush data:', new Date(commentMesspushObjectjson.time));
+  console.log('打印 Comment_messpush 表的内容:', new Date(commentMesspushObjectjson.time));
 
   // 搜索 Comment 表的数据
   const Comment = AV.Object.extend('Comment');
   const commentQuery = new AV.Query(Comment);
-  commentQuery.greaterThan('insertedAt', new Date(commentMesspushObjectjson.time)+1);
+  // 创建一个 Date 对象，表示 '2023-11-12 23:34:55'
+  let dateObject = new Date(commentMesspushObjectjson.time);
+  dateObject.setSeconds(dateObject.getSeconds() + 1);  // 增加一秒
+  commentQuery.greaterThan('insertedAt', dateObject);  //where条件
   commentQuery.descending('insertedAt'); // 按 insertedAt 降序排序
   const commentObjects = await commentQuery.find();
   newTime = 0;
@@ -56,7 +58,7 @@ async function getCommentMesspushData() {
 
     // 发送数据到 PushPlus
     const pushplusUrl = `https://pushplus.plus/send?token=${pushplusToken}&title=博客收到${commentObjects.length}条评论回复&content=${content}`;
-    // await axios.get(pushplusUrl);
+    await axios.get(pushplusUrl);
 
     // 更新 time 字段
     // 获取年、月、日、时、分、秒
