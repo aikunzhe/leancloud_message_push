@@ -67,7 +67,7 @@ async function getCommentMesspushData() {
     const day = String(newTime.getDate()).padStart(2, '0');
     const hours = String(newTime.getHours()).padStart(2, '0');
     const minutes = String(newTime.getMinutes()).padStart(2, '0');
-    const seconds = String(newTime.getSeconds()).padStart(2, '0');
+    const seconds = String(newTime.getSeconds()+1).padStart(2, '0'); // 增加一秒
     // 构建日期时间字符串
     const formattedDateString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
